@@ -54,10 +54,15 @@ const logOut = () =>{
     return signOut(auth)
 }
 
+//update profile
+const updateUser = (userInfo) =>{
+    return updateProfile(auth.currentUser , userInfo)
+}
+
 
     // authInfo 
     const authInfo = {
-        googleSignup , githubSignup , user , logOut , createUser , signIn
+        googleSignup , githubSignup , user , logOut , createUser , signIn , updateUser
     }
 
     return (

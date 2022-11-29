@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BsGithub } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthProvider';
 
 const Login = () => {
     const {register , formState: {errors} , handleSubmit} = useForm()
     const {googleSignup , githubSignup  ,createUser , signIn }  = useContext(AuthContext)
-
+    const navigate = useNavigate()
 
     // show hide button 
     const [visible , setVisible] = useState(false)
@@ -63,6 +63,8 @@ const handleGithubSignIn = () =>{
         signIn(email , password)
         .then( ()=>{
             toast.success("logged in Successfully")
+            event.target.reset()
+            navigate('/')
         })
         .catch(err =>{
             toast.error(err.message)

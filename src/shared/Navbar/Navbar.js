@@ -25,7 +25,7 @@ const Navbar = () => {
 
 
   {
-    user?.email ? <li><Link>Dashboard</Link></li> : 
+    user?.email ? <li><Link to="/dashboard">Dashboard</Link></li> : 
    <>
    
    <li><Link to="/register">Register</Link></li>

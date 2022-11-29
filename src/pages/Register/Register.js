@@ -7,16 +7,28 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { toast } from 'react-toastify';
 const Register = () => {
 
-    const {googleSignup , githubSignup  ,createUser }  = useContext(AuthContext)
+    const {googleSignup , githubSignup  ,createUser , updateUser}  = useContext(AuthContext)
 
 
     const handleSignup = (data) =>{
-        const {email, password} = data 
+        const {email, password , name } = data 
         createUser(email ,password)
         .then(result =>{
             const user = result.user
             console.log(user)
             toast.success("user created")
+            const userInfo = {
+                displayName : name
+            }
+            updateUser(userInfo)
+            .then(()=>{
+                toast.success("user name updated")
+
+            })
+            .catch(err =>{
+                console.log(err)
+                toast.error(err.message)
+            })
         })
         .catch(err =>{
             const message = err.message
