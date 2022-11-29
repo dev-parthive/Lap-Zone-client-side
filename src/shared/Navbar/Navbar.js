@@ -1,12 +1,38 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../Context/AuthProvider';
 const Navbar = () => {
+  const {user , logOut}  = useContext(AuthContext)
+  console.log(user)
+  const handleLogout = () =>{
+    logOut()
+    .then( ()=>{
+      toast.success("use logged out successfuly")
+    } )
+    .catch(err =>{
+      const message = err.message
+      toast.error(message)
+      console.log(err)
+    })
+  }
+  
   
   const menuItems = <>
   <li><Link to="/">Home</Link></li>
   <li><Link to="/blog">Blog</Link></li>
-  <li><Link to="/register">Register</Link></li>
-  <li><Link to="/login">Login</Link></li>
+
+
+
+  {
+    user?.uid ? <li><Link>Dashboard</Link></li> : 
+   <>
+   
+   <li><Link to="/register">Register</Link></li>
+    <li><Link to="/login">Login</Link></li>
+   
+   </>
+  }
 
   
   </>
@@ -29,7 +55,16 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Get started</a>
+        {
+          user?.uid ?   <><a  className="">{user?.displayName ? <><img src={user.photoURL} className="rounded-2xl w-8" alt="img" /></>
+        :
+        <><small>{user?.email}</small></>
+        }</a> 
+          <button onClick={handleLogout} className='btn btn-outline btn-success ml-2'>Log Out</button></>
+          : 
+          <>
+          </>
+        }
         </div>
       </div>
     );

@@ -1,23 +1,57 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import {FcGoogle } from 'react-icons/fc'
 import {BsGithub} from 'react-icons/bs'
+import { AuthContext } from '../../Context/AuthProvider';
+import { toast } from 'react-toastify';
 const Register = () => {
 
-    const handleSignup = (data) =>{
-        console.log(data)
+    const {googleSignup , githubSignup  ,createUser }  = useContext(AuthContext)
 
+
+    const handleSignup = (data) =>{
+        const {email, password} = data 
+        createUser(email ,password)
+        .then(result =>{
+            const user = result.user
+            console.log(user)
+            toast.success("user created")
+        })
+        .catch(err =>{
+            const message = err.message
+            toast.error(message)
+        })
     }
 
 const handleGoogleSignup = () =>{
     console.log('Goolge button is clicked')
+    googleSignup()
+    .then(result => {
+        const user = result.user
+        console.log(user)
+        toast.success("user created")
+    })
+    .catch(err =>{
+        console.log(err.message)
+        toast.error(err.message)
+    })
 }
 
+
 const handleGithubSignIn = () =>{
-    console.log('github button is clicked')
+    console.log('Goolge button is clicked')
+    githubSignup()
+    .then(result => {
+        const user = result.user
+        console.log(user)
+    })
+    .catch(err =>{
+        console.log(err.message)
+    })
 }
-        
+
+      
     //show and hide function 
     const [vsisible, setVisible] = useState(false)
     const [type, setType] = useState('password')
@@ -71,7 +105,7 @@ const handleGithubSignIn = () =>{
                     }
                 </div>
 
-                <input className='btn mt-4 w-full' value="signup" type="submit" />
+                <input className='btn mt-4 w-full' value="sign up" type="submit" />
             </form>
             <p className='my-4'>Already have an account ? <Link to="/login" className='text-secondary '>Login </Link></p>
             <div className="divider">OR</div>
