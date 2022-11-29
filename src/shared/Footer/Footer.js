@@ -27,7 +27,7 @@ const Footer = () => {
             </div>
             </div>
             <div className='mt-20 text-center'>
-                <p>Copyright © 2022 - All right reserved by Doctors Portal </p>
+                <p>Copyright © 2022 - All right reserved by <span className='text-orange-500'>Lap-Zone</span> </p>
             </div>
         </footer>
     );
