@@ -25,7 +25,7 @@ const Navbar = () => {
 
 
   {
-    user?.uid ? <li><Link>Dashboard</Link></li> : 
+    user?.email ? <li><Link>Dashboard</Link></li> : 
    <>
    
    <li><Link to="/register">Register</Link></li>
@@ -56,7 +56,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
         {
-          user?.uid ?   <><a  className="">{user?.displayName ? <><img src={user.photoURL} className="rounded-2xl w-8" alt="img" /></>
+          user?.email ?   <><a  className="">{user?.displayName ? <><img src={user.photoURL} className="rounded-2xl w-8" alt="img" /></>
         :
         <><small>{user?.email}</small></>
         }</a> 

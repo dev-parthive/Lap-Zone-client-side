@@ -41,6 +41,13 @@ useEffect( ()=>{
     }
 }, []) 
 
+//login 
+const signIn = (email, password) =>{
+    setLoading(true)
+    return signInWithEmailAndPassword(auth, email, password)
+
+}
+
 
 // Logout/ signOut 
 const logOut = () =>{
@@ -50,7 +57,7 @@ const logOut = () =>{
 
     // authInfo 
     const authInfo = {
-        googleSignup , githubSignup , user , logOut , createUser
+        googleSignup , githubSignup , user , logOut , createUser , signIn
     }
 
     return (

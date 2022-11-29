@@ -8,7 +8,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 
 const Login = () => {
     const {register , formState: {errors} , handleSubmit} = useForm()
-    const {googleSignup , githubSignup  ,createUser }  = useContext(AuthContext)
+    const {googleSignup , githubSignup  ,createUser , signIn }  = useContext(AuthContext)
 
 
     // show hide button 
@@ -60,7 +60,13 @@ const handleGithubSignIn = () =>{
 
         console.log(data)
         const {email, password} = data
-        
+        signIn(email , password)
+        .then( ()=>{
+            toast.success("logged in Successfully")
+        })
+        .catch(err =>{
+            toast.error(err.message)
+        })
 
     }
 

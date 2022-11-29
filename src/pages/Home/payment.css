@@ -1,0 +1,11 @@
+.payment-img-div{
+    width:  80%;
+    margin: 50px auto 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-gap: 20px;
+}
+.payment-img-div img{
+    height: 150px;
+    border-radius: 8px;
+}
