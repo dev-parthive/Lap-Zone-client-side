@@ -93,7 +93,7 @@ const handleGithubSignIn = () =>{
                         </label>
                         <input id="password" type={type} className='input input-bordered w-full max-w-xs' {...register("password" , {required : "Password is required" , minLength: {valuie : 6 , message: "Password should be atleast 6 charecter "}})} />
                         {/* //show hide button */}
-                        <span id="eye" className='btn w-10 mt-3' onClick={() => hanldeEye()}>{visible ? <p>hide</p> : <span>show</span>}</span>
+                        <span id="eye" className='btn  mt-3' onClick={() => hanldeEye()}>{visible ? <p>hide pass</p> : <span>show pass</span>}</span>
                             {
                                 errors.password && <p className='text-red-600' role="alert">{errors.password?.message}</p>
                             }
