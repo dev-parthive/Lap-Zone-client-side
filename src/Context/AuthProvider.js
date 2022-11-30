@@ -16,15 +16,18 @@ const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true)
     // create user by goolge 
     const googleSignup = () =>{
+        setLoading(true)
         return signInWithPopup(auth, googleProvider)
     }
     //create user by Github 
     const githubSignup = () =>{
+        setLoading(true)
         return signInWithPopup(auth , githubProvider)
     }
 
     //create user by eamil and password 
     const createUser = (email , password) =>{
+        setLoading(true)
      return createUserWithEmailAndPassword(auth, email , password)   
     }
 
@@ -51,6 +54,7 @@ const signIn = (email, password) =>{
 
 // Logout/ signOut 
 const logOut = () =>{
+    setLoading(true)
     return signOut(auth)
 }
 
@@ -62,7 +66,7 @@ const updateUser = (userInfo) =>{
 
     // authInfo 
     const authInfo = {
-        googleSignup , githubSignup , user , logOut , createUser , signIn , updateUser
+        googleSignup , githubSignup , user , logOut , createUser , signIn , updateUser ,loading
     }
 
     return (

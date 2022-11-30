@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BsGithub } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthProvider';
 
@@ -10,7 +10,8 @@ const Login = () => {
     const {register , formState: {errors} , handleSubmit} = useForm()
     const {googleSignup , githubSignup  ,createUser , signIn }  = useContext(AuthContext)
     const navigate = useNavigate()
-
+    const location = useLocation()
+    const from = location?.state?.from?.pathname || '/'
     // show hide button 
     const [visible , setVisible] = useState(false)
     const [type , setType ] = useState('password')
@@ -64,7 +65,7 @@ const handleGithubSignIn = () =>{
         .then( ()=>{
             toast.success("logged in Successfully")
             event.target.reset()
-            navigate('/')
+            navigate(from, {replace: true})
         })
         .catch(err =>{
             toast.error(err.message)

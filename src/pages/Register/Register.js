@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {FcGoogle } from 'react-icons/fc'
 import {BsGithub} from 'react-icons/bs'
 import { AuthContext } from '../../Context/AuthProvider';
@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 const Register = () => {
 
     const {googleSignup , githubSignup  ,createUser , updateUser}  = useContext(AuthContext)
-
+    const navigate = useNavigate()
 
     const handleSignup = (data) =>{
         const {email, password , name } = data 
@@ -23,6 +23,7 @@ const Register = () => {
             updateUser(userInfo)
             .then(()=>{
                 toast.success("user name updated")
+                navigate('/')
 
             })
             .catch(err =>{
