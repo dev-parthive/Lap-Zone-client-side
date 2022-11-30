@@ -9,11 +9,10 @@ const Register = () => {
 
     const { googleSignup, githubSignup, createUser, updateUser } = useContext(AuthContext)
     const navigate = useNavigate()
-    const userTypes = ['seller', 'buyer']
     const handleSignup = (data) => {
-        const { email, password, name } = data
+        const { email, password, name, role } = data
         console.log(data)
-        createUser(data)
+        createUser(email, password)
             .then(result => {
                 const user = result.user
                 console.log(user)
@@ -24,8 +23,8 @@ const Register = () => {
                 updateUser(userInfo)
                     .then(() => {
                         toast.success("user name updated")
-                        navigate('/')
-
+                        // navigate('/')
+                        saveUser(name, email , role )
                     })
                     .catch(err => {
                         console.log(err)
@@ -39,12 +38,13 @@ const Register = () => {
     }
 
     const handleGoogleSignup = () => {
-        console.log('Goolge button is clicked')
+        // console.log('Goolge button is clicked')
         googleSignup()
             .then(result => {
                 const user = result.user
                 console.log(user)
                 toast.success("user created")
+                saveUser( user.displayName, user.email, "buyer" )
             })
             .catch(err => {
                 console.log(err.message)
@@ -54,17 +54,37 @@ const Register = () => {
 
 
     const handleGithubSignIn = () => {
-        console.log('Goolge button is clicked')
+        // console.log('Goolge button is clicked')
         githubSignup()
             .then(result => {
                 const user = result.user
-                console.log(user)
+                // console.log(user)
+                toast.success("user created")
+                saveUser( user.displayName, user.email, "buyer" )
             })
             .catch(err => {
                 console.log(err.message)
+                toast.error(err.message)
             })
     }
 
+
+    // user er info database a save korar jonno 
+    const saveUser = (name, email , role) =>{
+        const user = {name , email ,role}
+        fetch('http://localhost:5000/users',{
+            method: "POST", 
+            headers: {
+                'content-type': 'application/json'
+            }, 
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+              navigate('/')
+        })
+    }
 
     //show and hide function 
     const [vsisible, setVisible] = useState(false)
@@ -120,10 +140,9 @@ const Register = () => {
                     </div>
                     <div>
                         <h1 className='text-orange-500'>Chose your account type</h1>
-                        <select  {...register('type')} name='type' className="select btn m-1 select-bordered w-full mb-5">
-            {
-              userTypes.map((type, i) => <option className=' shadow bg-base-100 rounded-box w-52"' key={i} value={type}>{type}</option>)
-            }
+                        <select  {...register('role')} name='role' className="select btn m-1 select-bordered w-full mb-5">
+            <option value="seller">Seller</option>
+            <option value="buyer">Buyer</option>
             
           </select>
 
