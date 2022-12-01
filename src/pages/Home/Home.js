@@ -18,7 +18,7 @@ const Home = () => {
 
             {/* categories section add here  */}
            <div className='mt-16'>
-            <h2 className='text-center text-2xl font-bold mb-6 text-orange-600'>Choose Your Favourite Brand</h2>
+            <h2 className='text-center text-2xl font-bold mb-6 text-orange-600'>Choose Your Favourite Brand/Category</h2>
 
            <div className='grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6'>
 
