@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 const Register = () => {
 
     const { googleSignup, githubSignup, createUser, updateUser } = useContext(AuthContext)
+    const { register, formState: { errors }, handleSubmit } = useForm()
     const navigate = useNavigate()
     const handleSignup = (data) => {
         const { email, password, name, role } = data
@@ -16,13 +17,13 @@ const Register = () => {
             .then(result => {
                 const user = result.user
                 console.log(user)
-                toast.success("user created")
+                // toast.success("user created")
                 const userInfo = {
                     displayName: name
                 }
                 updateUser(userInfo)
                     .then(() => {
-                        toast.success("user name updated")
+                        // toast.success("user name updated")
                         // navigate('/')
                         saveUser(name, email , role )
                     })
@@ -43,8 +44,8 @@ const Register = () => {
             .then(result => {
                 const user = result.user
                 console.log(user)
-                toast.success("user created")
                 saveUser( user.displayName, user.email, "buyer" )
+                // toast.success("buyer account created")
             })
             .catch(err => {
                 console.log(err.message)
@@ -59,7 +60,7 @@ const Register = () => {
             .then(result => {
                 const user = result.user
                 // console.log(user)
-                toast.success("user created")
+                // toast.success("buyer account  created")
                 saveUser( user.displayName, user.email, "buyer" )
             })
             .catch(err => {
@@ -82,26 +83,40 @@ const Register = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data)
-              navigate('/')
+            toast.success(`${role} account created`)
+            getUserToken(email)
         })
     }
 
-    //show and hide function 
-    const [vsisible, setVisible] = useState(false)
-    const [type, setType] = useState('password')
-    const hanldeEye = (event) => {
-        const password = document.getElementById("password")
-        setVisible(!vsisible)
-        if (password.type === 'password') {
-            setType('text')
-        }
-        else if (password.type === 'text') {
-            setType('password')
-        }
 
+    
+    /// jwt token 
+    const getUserToken = email =>{
+        fetch(`http://localhost:5000/jwt?email=${email}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.accessToken){
+                localStorage.setItem('accessToken' , data.accessToken)
+                navigate('/')
+            }
+        })
     }
-
-    const { register, formState: { errors }, handleSubmit } = useForm()
+        //show and hide function 
+        const [vsisible, setVisible] = useState(false)
+        const [type, setType] = useState('password')
+        const hanldeEye = (event) => {
+            const password = document.getElementById("password")
+            setVisible(!vsisible)
+            if (password.type === 'password') {
+                setType('text')
+            }
+            else if (password.type === 'text') {
+                setType('password')
+            }
+            
+        }
+    
     return (
         <section className='h-[800px]  flex justify-center items-center'>
             <div className='w-96 p-7 border shadow-md' >

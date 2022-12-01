@@ -36,7 +36,8 @@ const handleGoogleSignup = () =>{
     .then(result => {
         const user = result.user
         console.log(user)
-        toast.success("user created")
+        toast.success("Logged in buyer account ")
+        navigate(from, {replace: true})
     })
     .catch(err =>{
         console.log(err.message)
@@ -51,6 +52,8 @@ const handleGithubSignIn = () =>{
     .then(result => {
         const user = result.user
         console.log(user)
+        toast.success('Logged in buyer account')
+        navigate(from, {replace: true})
     })
     .catch(err =>{
         console.log(err.message)
@@ -72,6 +75,10 @@ const handleGithubSignIn = () =>{
         })
 
     }
+
+
+
+
 
     return (
         <section className='h-[800px] flex justify-center items-center'>
