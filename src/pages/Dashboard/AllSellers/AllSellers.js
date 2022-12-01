@@ -34,6 +34,19 @@ const AllSellers = () => {
 
     }
 
+    //hanlde verfication for buyer 
+    const hanldeVerification = (id) =>{
+        fetch(`http://localhost:5000/sellers/verfication/${id}`,{
+            method: "PUT"
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            refetch()
+            toast.success("now user verified")
+        })
+
+    } 
     console.log(sellers)
     if(isLoading){
         return <Loading></Loading>
@@ -62,8 +75,16 @@ const AllSellers = () => {
             <td>{seller.email}</td>
             <td>
 
-                <button className='btn btn-outline btn-accent btn-sm ml-2'>Verify</button>
-                <button onClick={()=>handleDelete(seller._id)} className='btn btn-outline btn-info btn-sm'>Delete</button>
+               <div className='flex justify-center'>
+
+                {
+                    seller?.verification ||              <button onClick={()=>hanldeVerification(seller._id)} className='btn btn-outline btn-accent btn-sm '>Verify</button>
+                }
+                {/* {
+                    seller?.verification 
+                } */}
+                <button onClick={()=>handleDelete(seller._id)} className='btn btn-outline btn-info btn-sm ml-2'>Delete</button>
+               </div>
 
             </td>
           </tr>)
