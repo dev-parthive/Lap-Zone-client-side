@@ -8,6 +8,12 @@ import Register from "../../pages/Register/Register";
 import DashboardLayout from "../../layout/DashboardLayout";
 import PrivateRoute from "../PrivateRoutes/PrivateRoute";
 import CategoryProducts from "../../pages/CategoryProducts/CategoryProducts";
+import MyOrders from "../../pages/Dashboard/MyOrders/MyOrders";
+import MyWhishList from "../../pages/Dashboard/MyWhishList/MyWhishList";
+import MyProducts from "../../pages/Dashboard/MyProducts/MyProducts";
+import AddProduct from "../../pages/Dashboard/AddProduct/AddProduct";
+import AllSellers from "../../pages/Dashboard/AllSellers/AllSellers";
+import AllBuyers from "../../pages/Dashboard/AllBuyers/AllBuyers";
 const router = createBrowserRouter([
     {
         path: '/', 
@@ -46,8 +52,32 @@ const router = createBrowserRouter([
         element: <PrivateRoute> <DashboardLayout></DashboardLayout> </PrivateRoute>, 
         children: [
             {
-                path: '/dashboard', 
-
+                path: '/dashboard/myorders',
+                element: <MyOrders></MyOrders> 
+            }, 
+            {
+                path: '/dashboard/myorders', 
+                element: <MyOrders></MyOrders>
+            } , 
+            {
+                path: '/dashboard/mywhishlist', 
+                element: <MyWhishList></MyWhishList>
+            },
+            {
+                path: '/dashboard/myproducts', 
+                element: <MyProducts></MyProducts>
+            }, 
+            {
+                path: '/dashboard/addproduct', 
+                element: <AddProduct></AddProduct>
+            }, 
+            {
+                path: '/dashboard/allseller', 
+                element: <AllSellers></AllSellers>
+            }, 
+            {
+                path: '/dashboard/allbuyers',
+                element: <AllBuyers></AllBuyers>
             }
         ]
     }
