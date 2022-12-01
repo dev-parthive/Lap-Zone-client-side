@@ -5,11 +5,19 @@ import { FcGoogle } from 'react-icons/fc'
 import { BsGithub } from 'react-icons/bs'
 import { AuthContext } from '../../Context/AuthProvider';
 import { toast } from 'react-toastify';
+import useToken from '../../hooks/useToken';
 const Register = () => {
 
     const { googleSignup, githubSignup, createUser, updateUser } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm()
     const navigate = useNavigate()
+
+    const [createUserEmail, setCreatedUserEmail]  = useState('')
+    const [token] = useToken(createUserEmail)
+
+    if(token){
+        navigate('/')
+    }
     const handleSignup = (data) => {
         const { email, password, name, role } = data
         console.log(data)
@@ -84,24 +92,13 @@ const Register = () => {
         .then(data => {
             console.log(data)
             toast.success(`${role} account created`)
-            getUserToken(email)
-        })
-    }
-
-
+            setCreatedUserEmail(email)
     
-    /// jwt token 
-    const getUserToken = email =>{
-        fetch(`http://localhost:5000/jwt?email=${email}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            if(data.accessToken){
-                localStorage.setItem('accessToken' , data.accessToken)
-                navigate('/')
-            }
         })
     }
+
+
+
         //show and hide function 
         const [vsisible, setVisible] = useState(false)
         const [type, setType] = useState('password')
@@ -156,8 +153,8 @@ const Register = () => {
                     <div>
                         <h1 className='text-orange-500'>Chose your account type</h1>
                         <select  {...register('role')} name='role' className="select btn m-1 select-bordered w-full mb-5">
-            <option value="seller">Seller</option>
             <option value="buyer">Buyer</option>
+            <option value="seller">Seller</option>
             
           </select>
 

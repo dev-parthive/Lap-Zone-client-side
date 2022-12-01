@@ -2,6 +2,7 @@ import { async } from '@firebase/util';
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../Context/AuthProvider';
+import Loading from '../../../shared/Loading/Loading';
 
 const MyOrders = () => {
 
@@ -9,15 +10,22 @@ const MyOrders = () => {
 
     const url = `http://localhost:5000/orders?email=${user?.email}`
 
-    const { data: orders } = useQuery({
+    const { data: orders = [] , isLoading} = useQuery({
         queryKey: ['orders', user?.email],
         queryFn: async () => {
-            const res = await fetch(url)
+            const res = await fetch(url , {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
             const data = await res.json()
             return data
         }
     })
     console.log(orders)
+    if(isLoading){
+        return <Loading></Loading>
+    }
     return (
         <div className='p-7'>
             <h3 className='text-center text-orange-500 text-2xl'>My Orders </h3>
@@ -37,7 +45,7 @@ const MyOrders = () => {
                         <tbody>
 
                             {
-                                orders?.length && orders.map((order, i) => <tr key={i}>
+                              orders?.length &&  orders.map((order, i) => <tr key={i}>
                                     <th>{i + 1}</th>
                                     <td>
                                         <div className="avatar">
