@@ -13,7 +13,10 @@ const BookingModal = ({product}) => {
         userName :event.target.name.value , 
         userEamil :event.target.email.value,
         userPhone : event.target.phone.value,
-       userLocation : event.target.location.value
+       userLocation : event.target.location.value, 
+       porductName : product.name,
+       productImg: product.pitcture, 
+       productPrice: product.resalePrice
        }
        console.log(order)
        fetch('http://localhost:5000/orders',{
