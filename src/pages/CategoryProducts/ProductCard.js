@@ -1,5 +1,6 @@
 import React from 'react';
 import {BsPatchCheckFill} from 'react-icons/bs'
+import useVerified from '../../hooks/useVerified';
 const ProductCard = ({product , setProduct}) => {
     // console.log(product)
     const {pitcture: picture , name , brand, locatiion : location, description, mothsOfUse, originalPrice, postedTime , resalePrice , sellerName , verification , condition} = product
@@ -8,6 +9,8 @@ const ProductCard = ({product , setProduct}) => {
     if(verification === "verfied"){
          message =  <BsPatchCheckFill></BsPatchCheckFill>
     }
+
+
     return (
         <div className='bg-slate-100 p-6 text-black rounded-xl'>
             <div className='flex justify-center'>

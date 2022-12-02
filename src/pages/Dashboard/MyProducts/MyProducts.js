@@ -35,6 +35,28 @@ const MyProducts = () => {
             }
         })
     }
+
+    const hanldeAdvertise = (id) =>{
+    console.log(id)      
+    fetch(`http://localhost:5000/product/advertise/${id}`,{
+            method: "PUT", 
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.success){
+                refetch()
+            toast.success("Product is gone to Advertise")
+            }
+            else if (!data.success){
+                toast.error('Your are not seller')
+            }
+        })  
+
+    }
     console.log(products)
     return (
         <div className='p-7'>
@@ -68,7 +90,7 @@ const MyProducts = () => {
                                     </td>
                                     <td>{product?.name}</td>
                                     <td className='text-orange-500'> <span className='text-2xl'>৳</span> {product?.resalePrice}</td>
-                                    <td > <button className='btn btn-sm btn-outline btn-secondary'>Advertise</button> <button onClick={()=> handleDeleteProduct(product._id)} className='btn btn-outline btn-accent  btn-sm'>Delete</button></td>
+                                    <td > <button onClick={()=>hanldeAdvertise(product._id)} className='btn btn-sm btn-outline btn-secondary'>Advertise</button> <button onClick={()=> handleDeleteProduct(product._id)} className='btn btn-outline btn-accent  btn-sm'>Delete</button></td>
                                 </tr>)
                             }
 

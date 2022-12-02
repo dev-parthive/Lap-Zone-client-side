@@ -3,8 +3,29 @@ import { AuthContext } from '../../Context/AuthProvider';
 import Payment from './Payment';
 import './Home.css'
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '../../shared/Loading/Loading';
+import useVerified from '../../hooks/useVerified';
+import AddVertiseCard from './AddVertiseCard';
 
 const Home = () => {
+    const {user} = useContext(AuthContext)
+    const [isVerified] = useVerified(user?.email)
+    const {data: advertise = [] , isLoading} = useQuery({
+        queryKey: ['advertise'], 
+        queryFn: async () => {
+            const res = await fetch('http://localhost:5000/product/advertise')
+            const data = await res.json()
+            return data;
+        }
+    })
+    console.log(advertise)
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+    console.log(isVerified)
+
     return (
         <div>
                 <div className="banner w-full flex justify-center items-center">
@@ -29,8 +50,20 @@ const Home = () => {
             </div>
            </div>
 
-            {/* payment section start here  */}
+        {/* advertise section is here  */}
+           {
+            advertise.length &&  <div className='mt-12'>
+            <h3 className='text-center text-2xl text-orange-500'>Advertise product is here </h3>
+           <div  className='my-9 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6'>
+           {
+                advertise.map(product => <AddVertiseCard key={product._id} product={product}></AddVertiseCard>)
+            }
+           </div>
 
+        </div>
+           }
+
+            {/* payment section start here  */}
             <div className='mt-12'>
             <Payment ></Payment>
             </div>
