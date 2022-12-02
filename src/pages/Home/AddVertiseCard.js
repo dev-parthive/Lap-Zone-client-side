@@ -1,7 +1,16 @@
 import React from 'react';
+import { BsPatchCheckFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import useVerified from '../../hooks/useVerified';
 
 const AddVertiseCard = ({product}) => {
+
+    const [isVerified, isVerifiedLoading] = useVerified(product?.sellerEmail)
+    console.log(isVerified)
+let tik 
+    if(isVerified){
+        tik =  <BsPatchCheckFill></BsPatchCheckFill>
+    }
     return (
         <div className='bg-slate-100 p-6 text-black rounded-xl'>
             <div className='flex justify-center'>
@@ -17,7 +26,7 @@ const AddVertiseCard = ({product}) => {
                 <p> <span className='text-orange-500 font-semibold'>posted on</span>: {product.postedTime}</p>
                 <div className='flex items-center'>
                 <p> <span className='text-orange-500 font-semibold'>Seller</span>: {product.sellerName}</p>
-                <span className='ml-3'>{product.message}</span>
+                <span className='ml-3'>{tik}</span>
                 </div>
                 <p> <span className='text-orange-500 font-semibold'>Description</span>: {product.description}</p>
             </div>
