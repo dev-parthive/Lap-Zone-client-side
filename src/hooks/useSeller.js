@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 const useSeller = email =>{
     const [isSeller , setisSeller] = useState(false)
     const [isSellerLoading, setisSellerLoading] = useState(true)
-
+    console.log(email)
     useEffect( ()=>{
         if(email){
             fetch(`http://localhost:5000/users/seller/${email}`)
