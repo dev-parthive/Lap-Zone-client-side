@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AddVertiseCard = ({product}) => {
     return (
@@ -21,9 +22,6 @@ const AddVertiseCard = ({product}) => {
                 <p> <span className='text-orange-500 font-semibold'>Description</span>: {product.description}</p>
             </div>
           <div className='flex justify-center mt-5'>
-          <label
-     
-          htmlFor="booking-modal"  className='btn btn-outline btn-accent'>Purchase Now</label>
           </div>
         </div>
     );

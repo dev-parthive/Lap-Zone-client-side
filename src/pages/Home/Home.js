@@ -53,7 +53,7 @@ const Home = () => {
         {/* advertise section is here  */}
            {
             advertise.length &&  <div className='mt-12'>
-            <h3 className='text-center text-2xl text-orange-500'>Advertise product is here </h3>
+            <h3 className='text-center text-2xl text-orange-500'>Advertise products are here </h3>
            <div  className='my-9 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6'>
            {
                 advertise.map(product => <AddVertiseCard key={product._id} product={product}></AddVertiseCard>)

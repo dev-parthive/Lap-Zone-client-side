@@ -10,7 +10,7 @@ const useVerified = email =>{
             .then(res => res.json())
             .then(data =>{
                 console.log(data)
-                setisVerified(data.isVerified)
+                setisVerified(data.isVerify)
                 setisVerifiedLoading(false)
             })
         }
