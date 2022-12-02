@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 
 const AddProduct = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const navigate = useNavigate()
     const imageHotKey = process.env.REACT_APP_Imgbb_key
     // console.log(imageHotKey)
     const {user} = useContext(AuthContext)
@@ -57,6 +59,7 @@ const AddProduct = () => {
                 .then(result => {
                     console.log(result)
                     toast.success('Product added successfully')
+                        navigate('/dashboard/myproducts')
                 })
             }
 
