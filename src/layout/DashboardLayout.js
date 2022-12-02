@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { AuthContext } from '../Context/AuthProvider';
+import useAdmin from '../hooks/useAdmin';
 import Footer from '../shared/Footer/Footer';
 import Navbar from '../shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
+  const {user} = useContext(AuthContext)
+  const [isAdmin] = useAdmin(user?.email)
     return (
         <div>
             <Navbar></Navbar>
@@ -21,8 +25,14 @@ const DashboardLayout = () => {
     <li><Link to="/dashboard/mywhishlist">My WhishList</Link></li>
     <li><Link to="/dashboard/addproduct">Add a product</Link></li>
     <li><Link to="/dashboard/myproducts">My Products</Link></li>
-    <li><Link to="/dashboard/allseller">All sellers</Link></li>
-    <li><Link to="/dashboard/allbuyers">All Buyers</Link></li>
+
+    {/* jodi admin hoy taile ai route gula show korbe  */}
+{
+
+isAdmin &&   <>  <li><Link to="/dashboard/allseller">All sellers</Link></li>
+<li><Link to="/dashboard/allbuyers">All Buyers</Link></li></>
+
+}
     </ul>
   
   </div>

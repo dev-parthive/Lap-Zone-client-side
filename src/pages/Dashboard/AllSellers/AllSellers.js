@@ -37,13 +37,21 @@ const AllSellers = () => {
     //hanlde verfication for buyer 
     const hanldeVerification = (id) =>{
         fetch(`http://localhost:5000/sellers/verfication/${id}`,{
-            method: "PUT"
+            method: "PUT", 
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
         })
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            refetch()
-            toast.success("now user verified")
+            if(data.success){
+                refetch()
+            toast.success("now buyer verified")
+            }
+            else if (!data.success){
+                toast.error('Your are not an admin')
+            }
         })
 
     } 
