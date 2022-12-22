@@ -18,10 +18,14 @@ import Dashbaord from "../../pages/Dashboard/dashboard/Dashbaord";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import SellerRoute from "./SellerRoute/SellerRoute";
 import BuyerRoute from "../BuyerRoue/BuyerRoute";
+import Payment from "../../pages/Home/Payment";
+import CashPayment from "../../pages/Dashboard/dashboard/payment/CashPayment";
+import DisplayError from "../../shared/DisplayError/DisplayError";
 const router = createBrowserRouter([
     {
         path: '/', 
         element:  <Main></Main>,
+        errorElement: <DisplayError></DisplayError>,
         children: [
             {
 
@@ -54,6 +58,7 @@ const router = createBrowserRouter([
     {
         path: '/dashboard', 
         element: <PrivateRoute> <DashboardLayout></DashboardLayout> </PrivateRoute>, 
+        errorElement: <DisplayError></DisplayError>,
         children: [
             {
                 path: '/dashboard', 
@@ -62,6 +67,13 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/myorders',
                 element: <BuyerRoute><MyOrders></MyOrders> </BuyerRoute>
+            }, 
+            {
+                path: '/dashboard/payment/:id',
+                element: <BuyerRoute><CashPayment></CashPayment></BuyerRoute>,
+                loader: ({params}) => {
+                    return fetch(`http://localhost:5000/order/${params.id}`)
+                }
             }, 
 
             {

@@ -1,6 +1,7 @@
 import { async } from '@firebase/util';
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 import Loading from '../../../shared/Loading/Loading';
 
@@ -8,7 +9,7 @@ const MyOrders = () => {
 
     const { user } = useContext(AuthContext)
 
-    const url = `http://localhost:5000/orders?email=${user?.email}`
+    const url = `https://y-dev-parthive.vercel.app/orders?email=${user?.email}`
 
     const { data: orders = [] , isLoading} = useQuery({
         queryKey: ['orders', user?.email],
@@ -57,8 +58,20 @@ const MyOrders = () => {
 
                                     </td>
                                     <td>{order?.porductName}</td>
-                                    <td className='text-orange-500'> <span className='text-2xl'>৳</span> {order?.productPrice}</td>
-                                    <td > <button className='btn btn-outline btn-accent'>Pay</button></td>
+                                    <td className='text-orange-500'> <span className='text-2xl'>৳</span>
+                                     {order?.productPrice}
+                                    </td>
+                                    <td > {
+                                   order?.productPrice &&  !order.paid && 
+                                   <Link to={`/dashboard/payment/${order._id}`}>
+                                   <button className='btn btn-outline btn-accent'>Pay</button>
+                                   </Link>
+                                    
+                                    }
+                                    {
+                                        order.price && order.paid && <span className='text-success'>Paid</span>
+                                    }
+                                    </td>
                                 </tr>)
                             }
 

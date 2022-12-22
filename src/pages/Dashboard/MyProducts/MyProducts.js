@@ -2,11 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../Context/AuthProvider';
+import Loading from '../../../shared/Loading/Loading';
 
 const MyProducts = () => {
     const {user} = useContext(AuthContext)
     console.log(user)
-    const url = `http://localhost:5000/products?email=${user?.email}`
+    const url = `https://y-dev-parthive.vercel.app/products?email=${user?.email}`
 
     const { data: products = [] , isLoading , refetch} = useQuery({
         queryKey: ['orders', user?.email],
@@ -24,7 +25,7 @@ const MyProducts = () => {
     //handle delete product 
     const handleDeleteProduct = (id) =>{
         console.log(id)
-        fetch(`http://localhost:5000/product/delete/${id}`, {
+        fetch(`https://y-dev-parthive.vercel.app/product/delete/${id}`, {
             method: "DELETE",
         })
         .then(res => res.json())
@@ -38,7 +39,7 @@ const MyProducts = () => {
 
     const hanldeAdvertise = (id) =>{
     console.log(id)      
-    fetch(`http://localhost:5000/product/advertise/${id}`,{
+    fetch(`https://y-dev-parthive.vercel.app/product/advertise/${id}`,{
             method: "PUT", 
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -58,6 +59,10 @@ const MyProducts = () => {
 
     }
     console.log(products)
+
+    if(isLoading){
+        return <Loading></Loading>
+    }
     return (
         <div className='p-7'>
             <h3 className='text-center text-orange-500 text-2xl'>My Orders </h3>

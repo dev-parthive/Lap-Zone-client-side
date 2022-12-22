@@ -8,7 +8,7 @@ const AllSellers = () => {
     const {data: sellers = [] , refetch, isLoading} = useQuery({
         queryKey: ['sellers'], 
         queryFn: async ()=>{
-            const res = await fetch('http://localhost:5000/allsellers' ,{
+            const res = await fetch('https://y-dev-parthive.vercel.app/allsellers' ,{
                 headers: {
                     authrization : `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -21,7 +21,7 @@ const AllSellers = () => {
     //handle delete seller 
     const handleDelete = (id) =>{
         console.log(id)
-        fetch(`http://localhost:5000/seller/${id}`, {
+        fetch(`https://y-dev-parthive.vercel.app/seller/${id}`, {
             method: "DELETE",
         })
         .then(res => res.json())
@@ -36,7 +36,7 @@ const AllSellers = () => {
 
     //hanlde verfication for buyer 
     const hanldeVerification = (id) =>{
-        fetch(`http://localhost:5000/sellers/verfication/${id}`,{
+        fetch(`https://y-dev-parthive.vercel.app/sellers/verfication/${id}`,{
             method: "PUT", 
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

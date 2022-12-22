@@ -6,7 +6,7 @@ const useVerified = email =>{
 
     useEffect( ()=>{
         if(email){
-            fetch(`http://localhost:5000/seller/verification/${email}`)
+            fetch(`https://y-dev-parthive.vercel.app/seller/verification/${email}`)
             .then(res => res.json())
             .then(data =>{
                 console.log(data)

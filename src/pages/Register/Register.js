@@ -81,7 +81,7 @@ const Register = () => {
     // user er info database a save korar jonno 
     const saveUser = (name, email , role) =>{
         const user = {name , email ,role}
-        fetch('http://localhost:5000/users',{
+        fetch('https://y-dev-parthive.vercel.app/users',{
             method: "POST", 
             headers: {
                 'content-type': 'application/json'

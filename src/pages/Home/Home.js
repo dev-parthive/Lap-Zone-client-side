@@ -14,7 +14,7 @@ const Home = () => {
     const {data: advertise = [] , isLoading} = useQuery({
         queryKey: ['advertise'], 
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/product/advertise')
+            const res = await fetch('https://y-dev-parthive.vercel.app/product/advertise')
             const data = await res.json()
             return data;
         }
