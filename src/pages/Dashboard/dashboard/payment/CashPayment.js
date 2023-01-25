@@ -12,8 +12,8 @@ const CashPayment = () => {
     const { productPrice, porductName } = data
     return (
         <div className='bg-white h-full'>
-            <h2 className='text-center text-2xl text-orange-600 '>Payment for {porductName} </h2>
-            <p className='text-center text-orange-400 text-xl'>Please pay $ {productPrice}</p>
+            <h2 className='text-center text-2xl text-orange-600 '>Payment for {data?.porductName} </h2>
+            <p className='text-center text-orange-400 text-xl'>Please pay $ {data?.productPrice}</p>
 
             <div className='w-96 my-12 mx-auto'>
                 <Elements stripe={stripePromise}>

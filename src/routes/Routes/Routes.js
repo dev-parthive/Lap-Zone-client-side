@@ -72,7 +72,7 @@ const router = createBrowserRouter([
                 path: '/dashboard/payment/:id',
                 element: <BuyerRoute><CashPayment></CashPayment></BuyerRoute>,
                 loader: ({params}) => {
-                    return fetch(`http://localhost:5000/order/${params.id}`)
+                    return fetch(`https://y-two-sigma.vercel.app/order/${params.id}`)
                 }
             }, 
 

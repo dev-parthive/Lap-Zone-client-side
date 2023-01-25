@@ -19,16 +19,20 @@ const CheckoutForm = () => {
             return
         }
 
-        const {error, paymentMethod} = await stripe.createPaymentMethod({
-            type: 'card',
-            card,
-          });
-          
-          if(error){
-            console.log(error);
-          }
+     // Use your card Element with other Stripe.js APIs
+     const {error, paymentMethod} = await stripe.createPaymentMethod({
+      type: 'card',
+      card,
+    });
+
+    if (error) {
+      console.log('[error]', error);
+    } else {
+      console.log('[PaymentMethod]', paymentMethod);
     }
+  };
     return (
+      <>
         <form onSubmit={handleSubmit}>
       <CardElement
         options={{
@@ -50,6 +54,8 @@ const CheckoutForm = () => {
         Pay
       </button>
     </form>
+    <p className="text-red-500">{cardError}</p>
+      </>
     );
 };
 
